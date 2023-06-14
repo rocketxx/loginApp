@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 function WelcomeScreen() {
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.title}>Welcome!</Text>
-      <Text>You authenticated successfully!</Text>
+      <Text style={styles.title}>Benvenuto!</Text>
+      <Text>Utente!</Text>
     </View>
   );
 }

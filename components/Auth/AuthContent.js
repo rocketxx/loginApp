@@ -18,9 +18,9 @@ function AuthContent({ isLogin, onAuthenticate }) {
 
   function switchAuthModeHandler() {
     if (isLogin) {
-      navigation.replace('Signup');
+      navigation.navigate('Signup'); //se metti replacd anzichè navigate toglie la freccia indietro
     } else {
-      navigation.replace('Login');
+      navigation.navigate('Login');
     }
   }
 
