@@ -13,7 +13,7 @@ function AuthContextProvider({ children }) {
     useEffect(() => {
         async function fetchToken(){
 
-            const storedToken = await AsyncStorage.getItem('token');
+            const storedToken = await AsyncStorage.getItem('token'); //utilizzato per memorizzare info sul dispositivo
             if(storedToken)
             {
                 setAuthToken(storedToken);        
