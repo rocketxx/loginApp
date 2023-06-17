@@ -12,7 +12,7 @@ function AuthContextProvider({ children }) {
 
     function authenticate(token) {
         setAuthToken(token);
-        AsyncStorage.setItem('token', token);
+        AsyncStorage.setItem('token', token); //firebase lo fa scadere dopo 1h, attento
     }
 
     function logout() {
