@@ -73,13 +73,14 @@ function Root()
       }
       setIsTryingLogin(false);
     }
+
     fetchToken();
   }, []);
 
-  // if (isTryingLogin) {
-  //   return <Text>Attendi</Text>;
-
-  // }
+  if (isTryingLogin) {
+    return (<Text>Attendi</Text>);
+    // serve uno splashscreen: libreria già installata. lezione store authtoken, quello non va, deprecato 
+  }
   return <Navigation />
 }
 
