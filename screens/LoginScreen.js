@@ -16,15 +16,15 @@ function LoginScreen() {
       authCtx.authenticate(token);
     } catch (error) {
       Alert.alert(
-        'Authentication failed!',
-        'Could not log you in. Please check your credentials or try again later!'
+        'Autenticazione fallita!',
+        'Perfavore ricontrolla le credenziali e riprova!'
       );
       setIsAuthenticating(false);
     }
   }
 
   if (isAuthenticating) {
-    return <LoadingOverlay message="Logging you in..." />;
+    return <LoadingOverlay message="Accesso ..." />;
   }
 
   return <AuthContent isLogin onAuthenticate={loginHandler} />;

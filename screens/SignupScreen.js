@@ -17,7 +17,7 @@ function SignupScreen() {
     }
     catch(error)
     {
-      Alert.alert("Errore durante la registrazione... riprova")
+      Alert.alert("Errore durante la registrazione... Riprova")
       setIsAuthenticating(false);
     }
   }
