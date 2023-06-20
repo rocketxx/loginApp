@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { firebase } from '../Firebase/firebase';
 
 const API_KEY = 'AIzaSyChxKle96IkRbb_gYmtw_nitSoX3bWFqK0'
 
@@ -12,7 +13,6 @@ async function authenticate(mode, email, password) {
   });
 // console.log(response)
   const token = response.data.idToken;
-
   return token;
 }
 
