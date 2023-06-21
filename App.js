@@ -11,7 +11,7 @@ import IconButton from './components/ui/IconButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppLoading from 'expo-app-loading';
 import { Text } from 'react-native';
-import { firebase } from './Firebase/firebase';
+
 const Stack = createNativeStackNavigator();
 
 function AuthStack() {
@@ -81,6 +81,8 @@ function Root()
 
   if (isTryingLogin) {
     // console.log(firebase)
+    
+    // console.log(users);
     return (<Text>Attendi</Text>);
     // serve uno splashscreen: libreria già installata. lezione store authtoken, quello non va, deprecato 
   }
