@@ -7,7 +7,7 @@ function WelcomeScreen() {
   [user,setUser] = useState([]);
   const todo = firebase.firestore().collection('todos').doc("LWmqBEQ7kGOLNdDK3SuR");
   const users = {}
-
+////lettura
   todo.get().then((doc) => {
     if (doc.exists) {
         console.log("Document data:", doc.data());
@@ -18,7 +18,20 @@ function WelcomeScreen() {
     console.log("Error getting document:", error);
 });
 
-
+//scrittura
+// firebase.auth().signInWithCredential
+const todo2 = firebase.firestore().collection('todos').doc("LWmqBEQ7kGOLNdDK3SuR").set({
+  name: "Los Angeles",
+  state: "CA",
+  country: "USA"
+})
+.then(() => {
+  console.log("Document successfully written!");
+})
+.catch((error) => {
+  console.error("Error writing document: ", error);
+});
+//
 
   return (
     <View style={styles.rootContainer}>
