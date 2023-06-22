@@ -3,20 +3,18 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth"
 import "firebase/compat/firestore"
 const firebaseConfig = {
-  apiKey: "AIzaSyChxKle96IkRbb_gYmtw_nitSoX3bWFqK0",
-  authDomain: "login-b2e5a.firebaseapp.com",
-  databaseURL: "https://login-b2e5a-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "login-b2e5a",
-  storageBucket: "login-b2e5a.appspot.com",
-  messagingSenderId: "321134925191",
-  appId: "1:321134925191:web:695b83ec8b7f9c1bcaaf22",
-  measurementId: "G-78J7STZZB4"
+  apiKey: "AIzaSyAFd8IMfj5mXE8GcexS8w5HkBGATVi1ZwQ",
+  authDomain: "corso-21f10.firebaseapp.com",
+  projectId: "corso-21f10",
+  storageBucket: "corso-21f10.appspot.com",
+  messagingSenderId: "877363979356",
+  appId: "1:877363979356:web:43061a993e0a9f77507299",
+  measurementId: "G-88NVPZHTH7"
 };
 
 if(!firebase.apps.length)
 {
     firebase.initializeApp(firebaseConfig);
 }
-
 export {firebase}
 

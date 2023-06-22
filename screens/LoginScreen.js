@@ -13,6 +13,11 @@ function LoginScreen() {
     setIsAuthenticating(true);
     try {
       const token = await login(email, password);
+      // console.log(token);
+      // token["admin"]
+      // const role = JSON.parse(window.atob(token.split(".")[1])).role;
+      console.log(role);
+
       authCtx.authenticate(token);
     } catch (error) {
       Alert.alert(

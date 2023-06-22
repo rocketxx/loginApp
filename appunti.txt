@@ -1,0 +1,2 @@
+UI per tasti google ecc
+https://github.com/oijusti/react-native-firebaseui-auth
