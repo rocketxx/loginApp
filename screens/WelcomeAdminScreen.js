@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { firebase } from '../Firebase/firebase';
 import jwt_decode from "jwt-decode";
-function WelcomeScreen() {
-  const todo = firebase.firestore().collection('courses').doc("64RqlG8KhjK8GYuTWwjQ____");
+function WelcomeAdminScreen() {
+//   const todo = firebase.firestore().collection('courses').doc("64RqlG8KhjK8GYuTWwjQ____");
 
 ////lettura
 //   todo.get().then((doc) => {
@@ -46,12 +46,12 @@ function WelcomeScreen() {
         )}
       ></FlatList> */}
       <Text style={styles.title}>Benvenuto!</Text>
-      <Text>Utente!</Text>
+      <Text>ADMIN!</Text>
     </View>
   );
 }
 
-export default WelcomeScreen;
+export default WelcomeAdminScreen;
 
 const styles = StyleSheet.create({
   rootContainer: {

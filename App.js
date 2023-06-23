@@ -11,6 +11,7 @@ import IconButton from './components/ui/IconButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppLoading from 'expo-app-loading';
 import { Text } from 'react-native';
+import WelcomeAdminScreen from './screens/WelcomeAdminScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -50,14 +51,46 @@ function AuthenticatedStack() {
     </Stack.Navigator>
   );
 }
-
+function AuthenticatedAdminStack() {
+  const authCtx = useContext(AuthContext);
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: Colors.primary500 },
+        headerTintColor: 'white',
+        contentStyle: { backgroundColor: Colors.primary100 },
+      }}
+    >
+      <Stack.Screen name="Welcome" component={WelcomeAdminScreen} options={{
+        headerRight: ({ tintColor }) => (<IconButton
+          icon="exit"
+          color={tintColor}
+          size={24}
+          onPress={authCtx.logout}
+        />),
+      }} />
+    </Stack.Navigator>
+  );
+}
+function mytest()
+{
+  const authCtx = useContext(AuthContext);
+  if(!authCtx.isAuthenticated)
+    return <AuthStack></AuthStack>
+  else if(authCtx.isAuthenticated && authCtx.isAdmin)
+    return <AuthenticatedAdminStack />
+  else
+    return <AuthenticatedStack />
+}
 function Navigation() {
   const authCtx = useContext(AuthContext);
+  console.log("ADMIN1",authCtx.isAdmin)
 
   return (
     <NavigationContainer>
-      {!authCtx.isAuthenticated && <AuthStack />}
-      {authCtx.isAuthenticated && <AuthenticatedStack />}
+      {mytest()}
+      {/* {!authCtx.isAuthenticated && <AuthStack />} */}
+      {/* {authCtx.isAuthenticated && <AuthenticatedStack />} */}
     </NavigationContainer>
   );
 }

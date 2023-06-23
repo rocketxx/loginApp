@@ -16,7 +16,9 @@ function LoginScreen() {
       const token = await login(email, password);
       var decoded = jwt_decode(token);
       var isAdmin = decoded["admin"]
-      console.log(isAdmin);
+      if(isAdmin!=undefined)
+        authCtx.setAdmin();
+
       authCtx.authenticate(token);
     } catch (error) {
       Alert.alert(
