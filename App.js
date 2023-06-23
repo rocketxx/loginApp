@@ -72,7 +72,7 @@ function AuthenticatedAdminStack() {
     </Stack.Navigator>
   );
 }
-function mytest()
+function RBAC_system()
 {
   const authCtx = useContext(AuthContext);
   if(!authCtx.isAuthenticated)
@@ -88,9 +88,7 @@ function Navigation() {
 
   return (
     <NavigationContainer>
-      {mytest()}
-      {/* {!authCtx.isAuthenticated && <AuthStack />} */}
-      {/* {authCtx.isAuthenticated && <AuthenticatedStack />} */}
+      {RBAC_system()}
     </NavigationContainer>
   );
 }
