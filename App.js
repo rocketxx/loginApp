@@ -77,22 +77,30 @@ function AuthenticatedAdminStack() {
 function RBAC_system()
 {
   const [user,setUser] = useState();
+  const [admin,setAdmin] = useState(false);
   useEffect(()=>{
     onAuthStateChanged(FIREBASE_AUTH,(user)=>{
       console.log("DENTRO RBAC");
       setUser(user)
       // console.log(user)
       //leggo token
-      // user.getIdTokenResult().then((idTokenResult) => {
-        //             const customClaims = idTokenResult.claims;
-        //             return idTokenResult.token
-        //             // console.log("CLAIMS: ", customClaims["admin"])
-        //         });
+      if(user)
+      {
+        user.getIdTokenResult().then((idTokenResult) => {
+                     const customClaims = idTokenResult.claims;
+                     //  idTokenResult.token
+                     console.log("CLAIMS: ", customClaims["admin"])
+                     if(customClaims["admin"])
+                       setAdmin(customClaims["admin"])
+                 });
+      }
     })
   },[])
   const authCtx = useContext(AuthContext);
   if(!user)
     return <AuthStack></AuthStack>
+  else if(user && admin)
+    return <AuthenticatedAdminStack />
   else
     return <AuthenticatedStack />
 }
