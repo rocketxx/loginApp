@@ -2,12 +2,10 @@
 import { useEffect, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { firebase } from '../Firebase/firebase';
-
+import jwt_decode from "jwt-decode";
 function WelcomeScreen() {
-  [user,setUser] = useState([]);
-  // const todo = firebase.firestore().collection('todos').doc("LWmqBEQ7kGOLNdDK3SuR");
-  const todo = firebase.firestore().collection('courses').doc("1PH2cOgGfGZEHqRuZO18");
-  const users = {}
+  const todo = firebase.firestore().collection('courses').doc("64RqlG8KhjK8GYuTWwjQ____");
+
 ////lettura
   todo.get().then((doc) => {
     if (doc.exists) {

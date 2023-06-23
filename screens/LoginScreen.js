@@ -4,6 +4,7 @@ import LoadingOverlay from '../components/ui/LoadingOverlay';
 import { login } from '../util/auth';
 import { Alert } from "react-native";
 import { AuthContext } from "../store/auth-contenxt";
+import jwt_decode from "jwt-decode";
 function LoginScreen() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
@@ -13,11 +14,9 @@ function LoginScreen() {
     setIsAuthenticating(true);
     try {
       const token = await login(email, password);
-      // console.log(token);
-      // token["admin"]
-      // const role = JSON.parse(window.atob(token.split(".")[1])).role;
-      console.log(role);
-
+      var decoded = jwt_decode(token);
+      var isAdmin = decoded["admin"]
+      console.log(isAdmin);
       authCtx.authenticate(token);
     } catch (error) {
       Alert.alert(
