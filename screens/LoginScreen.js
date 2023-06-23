@@ -5,27 +5,26 @@ import { login } from '../util/auth';
 import { Alert } from "react-native";
 import { AuthContext } from "../store/auth-contenxt";
 import jwt_decode from "jwt-decode";
+import { FIREBASE_AUTH } from "../Firebase/firebase";
+import { firebase } from "../Firebase/firebase";
+import { signInWithCredential, signInWithEmailAndPassword } from "firebase/auth";
 function LoginScreen() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   const authCtx = useContext(AuthContext);
+  const auth = FIREBASE_AUTH;
 
   async function loginHandler({ email, password }) {
     setIsAuthenticating(true);
     try {
-      const token = await login(email, password);
-      console.log("in login: ", token)
-      var decoded = jwt_decode(token);
-      var isAdmin = decoded["admin"]
-      if(isAdmin!=undefined)
-        authCtx.setAdmin();
-
-      authCtx.authenticate(token);
+      const response = await signInWithEmailAndPassword(auth,email,password)
+      // const response = await signInWithCredential(auth,email,password);
+      console.log("res login");
     } catch (error) {
       Alert.alert(
-        'Autenticazione fallita!',
-        'Perfavore ricontrolla le credenziali e riprova!'
+        error.message
       );
+    } finally{
       setIsAuthenticating(false);
     }
   }

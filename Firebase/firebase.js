@@ -1,7 +1,9 @@
-// import * as firebase from "firebase/app";
+import {initializeApp} from "firebase/app";
 import firebase from "firebase/compat/app";
+// import { getFirestore} from "firebase/firestore"
 import "firebase/compat/auth"
-import "firebase/compat/firestore"
+import "firebase/compat/firestore"  
+import {getAuth} from "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyAFd8IMfj5mXE8GcexS8w5HkBGATVi1ZwQ",
   authDomain: "corso-21f10.firebaseapp.com",
@@ -17,4 +19,6 @@ if(!firebase.apps.length)
     firebase.initializeApp(firebaseConfig);
 }
 export {firebase}
-
+export const FIREBASE_APP = initializeApp(firebaseConfig);
+export const FIREBASE_AUTH = getAuth(FIREBASE_APP);
+// export const FIREBASE_DB = getFirestore(FIREBASE_APP);

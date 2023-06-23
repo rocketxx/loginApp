@@ -1,10 +1,10 @@
 // import { firebase } from '@react-native-firebase/database';
 import { useEffect, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
-import { firebase } from '../Firebase/firebase';
-import jwt_decode from "jwt-decode";
+// import { firebase } from '../Firebase/firebase';
+// import jwt_decode from "jwt-decode";
 function WelcomeScreen() {
-  const todo = firebase.firestore().collection('courses').doc("64RqlG8KhjK8GYuTWwjQ____");
+  // const todo = firebase.firestore().collection('courses').doc("64RqlG8KhjK8GYuTWwjQ____");
 
 ////lettura
 //   todo.get().then((doc) => {
