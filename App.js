@@ -92,6 +92,8 @@ function RBAC_system()
                      console.log("CLAIMS: ", customClaims["admin"])
                      if(customClaims["admin"])
                        setAdmin(customClaims["admin"])
+                       else
+                       setAdmin(false)
                  });
       }
     })
