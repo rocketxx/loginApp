@@ -47,7 +47,7 @@ function AuthenticatedStack() {
           icon="exit"
           color={tintColor}
           size={24}
-          onPress={authCtx.logout}
+          onPress={()=>{FIREBASE_AUTH.signOut()}}
         />),
       }} />
     </Stack.Navigator>
