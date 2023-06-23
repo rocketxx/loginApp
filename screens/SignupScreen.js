@@ -14,7 +14,7 @@ function SignupScreen() {
     setIsAuthenticating(true);
     try {
       const response = await createUserWithEmailAndPassword(auth,email,password);
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       Alert.alert(
         'Registrazione fallita!'

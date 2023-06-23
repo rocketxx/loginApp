@@ -13,8 +13,8 @@ import AppLoading from 'expo-app-loading';
 import { Text } from 'react-native';
 import WelcomeAdminScreen from './screens/WelcomeAdminScreen';
 import { onAuthStateChanged } from 'firebase/auth';
-// import { FIREBASE_AUTH } from './Firebase/firebase';
-import { firebase } from "./Firebase/firebase";
+import { FIREBASE_AUTH } from './Firebase/firebase';
+// import { firebase } from "./Firebase/firebase";
 const Stack = createNativeStackNavigator();
 
 function AuthStack() {
@@ -78,10 +78,10 @@ function RBAC_system()
 {
   const [user,setUser] = useState();
   useEffect(()=>{
-    firebase.auth().onAuthStateChanged((user)=>{
-      console.log("user: ", user)
+    onAuthStateChanged(FIREBASE_AUTH,(user)=>{
+      console.log("DENTRO RBAC");
       setUser(user)
-      console.log(user)
+      // console.log(user)
       //leggo token
       // user.getIdTokenResult().then((idTokenResult) => {
         //             const customClaims = idTokenResult.claims;
