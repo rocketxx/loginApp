@@ -14,6 +14,7 @@ function LoginScreen() {
     setIsAuthenticating(true);
     try {
       const token = await login(email, password);
+      console.log("in login: ", token)
       var decoded = jwt_decode(token);
       var isAdmin = decoded["admin"]
       if(isAdmin!=undefined)

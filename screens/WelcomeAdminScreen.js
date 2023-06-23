@@ -3,22 +3,7 @@ import { useEffect, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { firebase } from '../Firebase/firebase';
 function WelcomeAdminScreen() {
-    firebase.auth().signInWithEmailAndPassword("cane@gmail.com", "william")
-    // firebase.auth().createUserWithEmailAndPassword("testmio@gmail.com","william");
-    firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-            var uid = user.uid;
-            console.log(uid)
-            user.getIdTokenResult().then((idTokenResult) => {
-                const customClaims = idTokenResult.claims;
-                console.log(idTokenResult.token)
-                // console.log("CLAIMS: ", customClaims["admin"])
-            });
-        } else {
-            console.log("niente")
-        }
-    });
-
+    // const user = firebase.auth().currentUser;
     //scrittura
     // firebase.auth().setc
     // const todo2 = firebase.firestore().collection('todos').doc("LWmqBEQ7kGOLNdDK3SuR").set({
