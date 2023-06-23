@@ -83,9 +83,6 @@ function RBAC_system()
     return <AuthenticatedStack />
 }
 function Navigation() {
-  const authCtx = useContext(AuthContext);
-  console.log("ADMIN1",authCtx.isAdmin)
-
   return (
     <NavigationContainer>
       {RBAC_system()}
