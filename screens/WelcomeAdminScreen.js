@@ -32,7 +32,7 @@ function WelcomeAdminScreen() {
           </Pressable>
         )}
       ></FlatList> */}
-            <Text style={styles.title}>Benvenuto!</Text>
+            <Text style={styles.title}>PANNELLO DI CONTROLLO</Text>
             <Text>ADMIN!</Text>
         </View>
     );
