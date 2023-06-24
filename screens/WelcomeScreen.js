@@ -1,11 +1,24 @@
 // import { firebase } from '@react-native-firebase/database';
 import { useEffect, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FIREBASE_AUTH } from '../Firebase/firebase';
 // import { firebase } from '../Firebase/firebase';
 // import jwt_decode from "jwt-decode";
 function WelcomeScreen() {
   // const todo = firebase.firestore().collection('courses').doc("64RqlG8KhjK8GYuTWwjQ____");
 
+  const [userLogged,setuserLogged] = useState()
+
+
+    RenderEmail = () =>
+    {
+      const user = FIREBASE_AUTH.currentUser;
+      console.log("UTENTE",user["email"])
+      if(user)
+        setuserLogged(user["email"])
+      else
+        setuserLogged("Nessuna email")
+    }
 ////lettura
 //   todo.get().then((doc) => {
 //     if (doc.exists) {
@@ -45,8 +58,8 @@ function WelcomeScreen() {
           </Pressable>
         )}
       ></FlatList> */}
-      <Text style={styles.title}>Benvenuto!</Text>
-      <Text>Utente!</Text>
+      <Text style={styles.title}>Benvenuto UTENTE!</Text>
+      <Text>Email: {userLogged}</Text>
     </View>
   );
 }

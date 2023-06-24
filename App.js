@@ -114,32 +114,6 @@ function Navigation() {
   );
 }
 
-function Root()
-{
-  const authCtx = useContext(AuthContext);
-  
-  const [isTryingLogin, setIsTryingLogin] = useState(true);
-  useEffect(() => {
-    async function fetchToken() {
-      const storedToken = await AsyncStorage.getItem('token'); //utilizzato per memorizzare info sul dispositivo
-      if (storedToken) {
-        authCtx.authenticate(storedToken);
-      }
-      setIsTryingLogin(false);
-    }
-
-    fetchToken();
-  }, []);
-
-  if (isTryingLogin) {
-    // console.log(firebase)
-    
-    // console.log(users);
-    return (<Text>Attendi</Text>);
-    // serve uno splashscreen: libreria già installata. lezione store authtoken, quello non va, deprecato 
-  }
-  return <Navigation />
-}
 
 export default function App() {
   return (
