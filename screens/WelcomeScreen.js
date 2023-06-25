@@ -5,59 +5,23 @@ import { FIREBASE_AUTH } from '../Firebase/firebase';
 // import { firebase } from '../Firebase/firebase';
 // import jwt_decode from "jwt-decode";
 function WelcomeScreen() {
-  // const todo = firebase.firestore().collection('courses').doc("64RqlG8KhjK8GYuTWwjQ____");
+  const [userLogged, setUserLogged] = useState();
 
-  const [userLogged,setuserLogged] = useState()
+  const RenderEmail = () => {
+    const user = FIREBASE_AUTH.currentUser;
+    console.log("UTENTE", user["email"])
+    if (user)
+      setUserLogged(user["email"]);
+    else
+      setUserLogged("Nessuna email");
+  };
 
-
-    RenderEmail = () =>
-    {
-      const user = FIREBASE_AUTH.currentUser;
-      console.log("UTENTE",user["email"])
-      if(user)
-        setuserLogged(user["email"])
-      else
-        setuserLogged("Nessuna email")
-    }
-////lettura
-//   todo.get().then((doc) => {
-//     if (doc.exists) {
-//         console.log("Document data:", doc.data());
-//     } else {
-//         console.log("No such document!");
-//     }
-// }).catch((error) => {
-//     console.log("Error getting document:", error);
-// });
-
-//scrittura
-// firebase.auth().setc
-// const todo2 = firebase.firestore().collection('todos').doc("LWmqBEQ7kGOLNdDK3SuR").set({
-//   name: "Los Angeles",
-//   state: "CA",
-//   country: "USA"
-// })
-// .then(() => {
-//   console.log("Document successfully written!");
-// })
-// .catch((error) => {
-//   console.error("Error writing document: ", error);
-// });
-//
+  useEffect(() => {
+    RenderEmail(); // Chiamata alla funzione RenderEmail quando il componente si monta
+  }, []); // Assicurati di passare un array vuoto come secondo argomento per eseguire la chiamata solo una volta
 
   return (
     <View style={styles.rootContainer}>
-      {/* <FlatList
-        data={users}
-        numColumns={1}
-        renderItem={({item}) =>(
-          <Pressable>
-            <View>
-              <Text>{item.text1}</Text>
-            </View>
-          </Pressable>
-        )}
-      ></FlatList> */}
       <Text style={styles.title}>Benvenuto UTENTE!</Text>
       <Text>Email: {userLogged}</Text>
     </View>

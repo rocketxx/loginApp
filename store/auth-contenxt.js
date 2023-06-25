@@ -14,15 +14,15 @@ function AuthContextProvider({ children }) {
     const [isAdmin, setIsAdmin] = useState();
 
     function authenticate(token) {
-        setAuthToken(token);
-        console.log(token)
-        AsyncStorage.setItem('token', token); //firebase lo fa scadere dopo 1h, attento
+        // setAuthToken(token);
+        // console.log(token)
+        // AsyncStorage.setItem('token', token); //firebase lo fa scadere dopo 1h, attento
     }
 
     function logout() {
-        setAuthToken(null);
-        setIsAdmin(false)
-        AsyncStorage.removeItem('token');
+        // setAuthToken(null);
+        // setIsAdmin(false)
+        // AsyncStorage.removeItem('token');
     }
 
     function setAdmin()

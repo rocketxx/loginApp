@@ -80,19 +80,17 @@ function RBAC_system()
   const [admin,setAdmin] = useState(false);
   useEffect(()=>{
     onAuthStateChanged(FIREBASE_AUTH,(user)=>{
-      console.log("DENTRO RBAC");
+
       setUser(user)
-      // console.log(user)
-      //leggo token
+
       if(user)
       {
         user.getIdTokenResult().then((idTokenResult) => {
                      const customClaims = idTokenResult.claims;
-                     //  idTokenResult.token
                      console.log("CLAIMS: ", customClaims["admin"])
                      if(customClaims["admin"])
                        setAdmin(customClaims["admin"])
-                       else
+                     else
                        setAdmin(false)
                  });
       }
