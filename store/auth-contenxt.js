@@ -16,7 +16,7 @@ function AuthContextProvider({ children }) {
 
     async function authenticate(user,adminClaims) {
         setUser(JSON.stringify(user));
-        console.log("USER: ",user);
+        // console.log("USER: ",user);
         await AsyncStorage.setItem('userLogged',JSON.stringify(user)); //firebase lo fa scadere dopo 1h, attento
         if(adminClaims)
         {

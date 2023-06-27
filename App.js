@@ -47,12 +47,21 @@ function AuthenticatedStack() {
           icon="exit"
           color={tintColor}
           size={24}
-          onPress={()=>{FIREBASE_AUTH.signOut()}}
+          onPress={customLogout}
         />),
       }} />
     </Stack.Navigator>
   );
 }
+
+function customLogout()
+{
+  const authCtx = useContext(AuthContext);
+  authCtx.logout();
+  FIREBASE_AUTH.signOut();
+
+}
+
 function AuthenticatedAdminStack() {
   const authCtx = useContext(AuthContext);
   return (
@@ -68,7 +77,7 @@ function AuthenticatedAdminStack() {
           icon="exit"
           color={tintColor}
           size={24}
-          onPress={()=>{FIREBASE_AUTH.signOut()}} //FIREBASE_AUTH.signOut()
+          onPress={customLogout} //FIREBASE_AUTH.signOut()
         />),
       }} />
     </Stack.Navigator>
@@ -78,28 +87,46 @@ function RBAC_system()
 {
   const [user,setUser] = useState();
   const [admin,setAdmin] = useState(false);
-  useEffect(()=>{
-    onAuthStateChanged(FIREBASE_AUTH,(user)=>{
-
-      setUser(user)
-
-      if(user)
-      {
-        user.getIdTokenResult().then((idTokenResult) => {
-                     const customClaims = idTokenResult.claims;
-                     console.log("CLAIMS: ", customClaims["admin"])
-                     if(customClaims["admin"])
-                       setAdmin(customClaims["admin"])
-                     else
-                       setAdmin(false)
-                 });
-      }
-    })
-  },[])
   const authCtx = useContext(AuthContext);
-  if(!user)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const storedToken = await AsyncStorage.getItem('userLogged');
+      const storedClaims = await AsyncStorage.getItem('isAdmin');
+  
+      if (storedToken) {
+        if (storedClaims === 'true') {
+          authCtx.authenticate(storedToken, true);
+        } else {
+          authCtx.authenticate(storedToken, false);
+        }
+      } else {
+        onAuthStateChanged(FIREBASE_AUTH, (user) => {
+          setUser(user);
+  
+          if (user) {
+            user.getIdTokenResult().then((idTokenResult) => {
+              const customClaims = idTokenResult.claims;
+              if (customClaims && customClaims.admin) {
+                setAdmin(customClaims.admin);
+                authCtx.authenticate(idTokenResult, true);
+              } else {
+                authCtx.authenticate(idTokenResult, false);
+                setAdmin(false);
+              }
+            });
+          }
+        });
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
+  // const authCtx = useContext(AuthContext);
+  if(!authCtx.isAuthenticated)
     return <AuthStack></AuthStack>
-  else if(user && admin)
+  else if(authCtx.isAuthenticated && authCtx.isAdmin)
     return <AuthenticatedAdminStack />
   else
     return <AuthenticatedStack />
@@ -117,9 +144,9 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      {/* <AuthContextProvider> */}
+      <AuthContextProvider>
       <Navigation />
-      {/* </AuthContextProvider> */}
+      </AuthContextProvider>
     </>
   );
 }

@@ -9,7 +9,7 @@ function WelcomeScreen() {
 
   const RenderEmail = () => {
     const user = FIREBASE_AUTH.currentUser;
-    console.log("UTENTE", user["email"])
+    // console.log("UTENTE", user["email"])
     if (user)
       setUserLogged(user["email"]);
     else
