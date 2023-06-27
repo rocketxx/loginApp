@@ -34,7 +34,8 @@ function AuthContextProvider({ children }) {
     }
 
     function logout() {
-        setAuthToken(null);
+        FIREBASE_AUTH.signOut()
+        setUser(null);
         setIsAdmin(false)
         AsyncStorage.removeItem('userLogged');
         AsyncStorage.removeItem('isAdmin');

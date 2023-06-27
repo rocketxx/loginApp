@@ -47,20 +47,13 @@ function AuthenticatedStack() {
           icon="exit"
           color={tintColor}
           size={24}
-          onPress={customLogout}
+          onPress={authCtx.logout}
         />),
       }} />
     </Stack.Navigator>
   );
 }
 
-function customLogout()
-{
-  const authCtx = useContext(AuthContext);
-  authCtx.logout();
-  FIREBASE_AUTH.signOut();
-
-}
 
 function AuthenticatedAdminStack() {
   const authCtx = useContext(AuthContext);
@@ -77,7 +70,7 @@ function AuthenticatedAdminStack() {
           icon="exit"
           color={tintColor}
           size={24}
-          onPress={customLogout} //FIREBASE_AUTH.signOut()
+          onPress={authCtx.logout} //FIREBASE_AUTH.signOut()
         />),
       }} />
     </Stack.Navigator>
@@ -97,22 +90,30 @@ function RBAC_system()
       if (storedToken) {
         if (storedClaims === 'true') {
           authCtx.authenticate(storedToken, true);
+          console.log('1')
         } else {
           authCtx.authenticate(storedToken, false);
+          console.log('2')
         }
       } else {
         onAuthStateChanged(FIREBASE_AUTH, (user) => {
           setUser(user);
+          console.log('3')
   
           if (user) {
             user.getIdTokenResult().then((idTokenResult) => {
               const customClaims = idTokenResult.claims;
-              if (customClaims && customClaims.admin) {
-                setAdmin(customClaims.admin);
+              if(customClaims["admin"])
+              {
+                setAdmin(true);
                 authCtx.authenticate(idTokenResult, true);
-              } else {
+
+              }
+              else
+              {
                 authCtx.authenticate(idTokenResult, false);
                 setAdmin(false);
+
               }
             });
           }
