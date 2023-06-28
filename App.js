@@ -76,61 +76,54 @@ function AuthenticatedAdminStack() {
     </Stack.Navigator>
   );
 }
-function RBAC_system()
-{
-  const [user,setUser] = useState();
-  const [admin,setAdmin] = useState(false);
+function RBAC_system() {
+  const [user, setUser] = useState(null);
+  const [admin, setAdmin] = useState(false);
   const authCtx = useContext(AuthContext);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const checkUser = async () => {
       const storedToken = await AsyncStorage.getItem('userLogged');
       const storedClaims = await AsyncStorage.getItem('isAdmin');
-  
+
       if (storedToken) {
-        if (storedClaims === 'true') {
-          authCtx.authenticate(storedToken, true);
-          console.log('1')
-        } else {
-          authCtx.authenticate(storedToken, false);
-          console.log('2')
-        }
+        const idTokenResult = { claims: { admin: storedClaims === 'true' } };
+        authCtx.authenticate(storedToken, storedClaims === 'true');
+        setUser({ getIdTokenResult: () => Promise.resolve(idTokenResult) });
+        setAdmin(storedClaims === 'true');
       } else {
-        onAuthStateChanged(FIREBASE_AUTH, (user) => {
+        onAuthStateChanged(FIREBASE_AUTH, async (user) => {
           setUser(user);
-          console.log('3')
-  
+
           if (user) {
-            user.getIdTokenResult().then((idTokenResult) => {
-              const customClaims = idTokenResult.claims;
-              if(customClaims["admin"])
-              {
-                setAdmin(true);
-                authCtx.authenticate(idTokenResult, true);
+            const idTokenResult = await user.getIdTokenResult();
+            const customClaims = idTokenResult.claims;
 
-              }
-              else
-              {
-                authCtx.authenticate(idTokenResult, false);
-                setAdmin(false);
+            if (customClaims["admin"]) {
+              setAdmin(true);
+            } else {
+              setAdmin(false);
+            }
 
-              }
-            });
+            authCtx.authenticate(idTokenResult, customClaims["admin"]);
+            AsyncStorage.setItem('userLogged', idTokenResult.token);
+            if(customClaims["admin"]!=undefined || customClaims["admin"]!=null )
+            AsyncStorage.setItem('isAdmin', customClaims["admin"].toString());
           }
         });
       }
     };
-  
-    fetchData();
+
+    checkUser();
   }, []);
-  
-  // const authCtx = useContext(AuthContext);
-  if(!authCtx.isAuthenticated)
-    return <AuthStack></AuthStack>
-  else if(authCtx.isAuthenticated && authCtx.isAdmin)
-    return <AuthenticatedAdminStack />
-  else
-    return <AuthenticatedStack />
+
+  if (!user) {
+    return <AuthStack />;
+  } else if (user && admin) {
+    return <AuthenticatedAdminStack />;
+  } else {
+    return <AuthenticatedStack />;
+  }
 }
 function Navigation() {
   return (

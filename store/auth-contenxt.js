@@ -15,40 +15,45 @@ function AuthContextProvider({ children }) {
     const [isAdmin, setIsAdmin] = useState(false);
 
     async function authenticate(user,adminClaims) {
-        setUser(JSON.stringify(user));
-        // console.log("USER: ",user);
-        await AsyncStorage.setItem('userLogged',JSON.stringify(user)); //firebase lo fa scadere dopo 1h, attento
-        if(adminClaims)
+        // console.log(user)
+        if(user)
         {
-            await AsyncStorage.setItem('isAdmin','true');
-            setAdmin(true)
-
+            setUser(JSON.stringify(user));
+            // console.log("USER: ",user);
+            await AsyncStorage.setItem('userLogged',JSON.stringify(user)); //firebase lo fa scadere dopo 1h, attento
+            if(adminClaims)
+            {
+                await AsyncStorage.setItem('isAdmin','true');
+                setAdmin(true)
+    
+            }
+            else
+            {
+                await AsyncStorage.setItem('isAdmin','false');
+                setAdmin(false)
+            }
+            // var mytmp = tmp.claims
+            // console.log("CONTEXT_CLAIMS: ",mytmp)
+            
         }
-        else
-        {
-            await AsyncStorage.setItem('isAdmin','false');
-            setAdmin(false)
-        }
-        // var mytmp = tmp.claims
-        // console.log("CONTEXT_CLAIMS: ",mytmp)
     }
 
-    function logout() {
+    async function logout() {
         FIREBASE_AUTH.signOut()
         setUser(null);
         setIsAdmin(false)
-        AsyncStorage.removeItem('userLogged');
-        AsyncStorage.removeItem('isAdmin');
+        await AsyncStorage.removeItem('userLogged');
+        await AsyncStorage.removeItem('isAdmin');
     }
 
     async function setAdmin()
     {
-        setIsAdmin(!isAdmin)
-        if(isAdmin)
-        await AsyncStorage.setItem('isAdmin','true');
-        else
-        await AsyncStorage.setItem('isAdmin','false');
-        console.log("ADMIN: ",isAdmin)
+        // setIsAdmin(!isAdmin)
+        // if(isAdmin)
+        // await AsyncStorage.setItem('isAdmin','true');
+        // else
+        // await AsyncStorage.setItem('isAdmin','false');
+        console.log("miiii: ",isAdmin)
     }
 
     const value = {
