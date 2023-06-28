@@ -5,7 +5,7 @@ export const AuthContext = createContext({
     user: '',
     isAuthenticated: false,
     isAdmin : false,
-    setAdmin : () => { }, 
+    setAdmin : (value) => { }, 
     authenticate: (user,adminClaims) => { },
     logout: () => { },
 });
@@ -24,13 +24,13 @@ function AuthContextProvider({ children }) {
             if(adminClaims)
             {
                 await AsyncStorage.setItem('isAdmin','true');
-                setAdmin(true)
+                setIsAdmin(true)
     
             }
             else
             {
                 await AsyncStorage.setItem('isAdmin','false');
-                setAdmin(false)
+                setIsAdmin(false)
             }
             // var mytmp = tmp.claims
             // console.log("CONTEXT_CLAIMS: ",mytmp)
@@ -46,9 +46,9 @@ function AuthContextProvider({ children }) {
         await AsyncStorage.removeItem('isAdmin');
     }
 
-    async function setAdmin()
+    async function setAdmin(value)
     {
-        // setIsAdmin(!isAdmin)
+        setIsAdmin(value)
         // if(isAdmin)
         // await AsyncStorage.setItem('isAdmin','true');
         // else

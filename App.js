@@ -88,9 +88,10 @@ function RBAC_system() {
 
       if (storedToken) {
         const idTokenResult = { claims: { admin: storedClaims === 'true' } };
-        authCtx.authenticate(storedToken, storedClaims === 'true');
+        authCtx.authenticate(storedToken, storedClaims === 'true'); 
         setUser({ getIdTokenResult: () => Promise.resolve(idTokenResult) });
         setAdmin(storedClaims === 'true');
+        authCtx.setAdmin(storedClaims === 'true')
       } else {
         onAuthStateChanged(FIREBASE_AUTH, async (user) => {
           setUser(user);
@@ -101,8 +102,10 @@ function RBAC_system() {
 
             if (customClaims["admin"]) {
               setAdmin(true);
+              authCtx.setAdmin(true)
             } else {
               setAdmin(false);
+              authCtx.setAdmin(false)
             }
 
             authCtx.authenticate(idTokenResult, customClaims["admin"]);
@@ -117,9 +120,9 @@ function RBAC_system() {
     checkUser();
   }, []);
 
-  if (!user) {
+  if (!authCtx.isAuthenticated) {
     return <AuthStack />;
-  } else if (user && admin) {
+  } else if (authCtx.isAuthenticated && authCtx.isAdmin) {
     return <AuthenticatedAdminStack />;
   } else {
     return <AuthenticatedStack />;
