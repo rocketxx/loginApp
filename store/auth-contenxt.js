@@ -53,7 +53,7 @@ function AuthContextProvider({ children }) {
         // await AsyncStorage.setItem('isAdmin','true');
         // else
         // await AsyncStorage.setItem('isAdmin','false');
-        console.log("miiii: ",isAdmin)
+        // console.log("miiii: ",isAdmin)
     }
 
     const value = {

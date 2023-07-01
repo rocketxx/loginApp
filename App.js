@@ -88,9 +88,12 @@ function RBAC_system() {
 
       if (storedToken) {
         const idTokenResult = { claims: { admin: storedClaims === 'true' } };
-        authCtx.authenticate(storedToken, storedClaims === 'true'); 
+        if(storedClaims === 'true' )
+        authCtx.authenticate(storedToken,true);
+        else 
+        authCtx.authenticate(storedToken,false); 
         setUser({ getIdTokenResult: () => Promise.resolve(idTokenResult) });
-        setAdmin(storedClaims === 'true');
+        setAdmin(storedClaims === 'true'); //risultato di espressione setta a true o false. dunque va come param. della funzione
         authCtx.setAdmin(storedClaims === 'true')
       } else {
         onAuthStateChanged(FIREBASE_AUTH, async (user) => {
@@ -118,6 +121,8 @@ function RBAC_system() {
     };
 
     checkUser();
+    console.log(authCtx.isAuthenticated)
+    console.log(authCtx.isAdmin)
   }, []);
 
   if (!authCtx.isAuthenticated) {
