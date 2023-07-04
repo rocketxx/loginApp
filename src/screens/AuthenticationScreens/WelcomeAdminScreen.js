@@ -7,7 +7,6 @@ import { getUserInfo } from '../../util/auth';
 
 function WelcomeAdminScreen() {
   const [userInfo, setUserInfo] = useState({})
-  console.log("in", userInfo)
   useEffect(() => {
     const func = async () => {
       await getUserInfo().then((res) => {

@@ -12,7 +12,6 @@ function WelcomeScreen() {
   const auth = getAuth()
   const todo = firebase.firestore().collection('courses').doc("64RqlG8KhjK8GYuTWwjQ____");
   const [userInfo, setUserInfo] = useState({})
-  console.log("in", userInfo)
   useEffect(() => {
     const func = async () => {
       await getUserInfo().then((res) => {
