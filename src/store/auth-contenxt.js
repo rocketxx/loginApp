@@ -1,10 +1,11 @@
-import { createContext, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createContext, useState } from "react";
+
 export const AuthContext = createContext({
     token: '',
     isAuthenticated: false,
-    isAdmin : false,
-    setAdmin : () => { }, 
+    isAdmin: false,
+    setAdmin: () => { },
     authenticate: (token) => { },
     logout: () => { },
 });
@@ -25,18 +26,17 @@ function AuthContextProvider({ children }) {
         AsyncStorage.removeItem('token');
     }
 
-    function setAdmin()
-    {
+    function setAdmin() {
         setIsAdmin(!isAdmin)
     }
 
     const value = {
         token: authToken,
         isAuthenticated: !!authToken, //!!nome_var converte il valore in booleano. true se è pieno, altrim. se vuoto, stringaa vuota o null false
-        isAdmin : !!isAdmin,
+        isAdmin: !!isAdmin,
         authenticate: authenticate,
         logout: logout,
-        setAdmin : setAdmin
+        setAdmin: setAdmin
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

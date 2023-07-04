@@ -1,9 +1,10 @@
 import { useState } from "react";
-import AuthContent from "../components/Auth/AuthContent";
-import { createUser } from "../util/auth";
-import LoadingOverlay from "../components/ui/LoadingOverlay";
 import { Alert } from "react-native";
-import { AuthContext } from "../store/auth-contenxt";
+
+import AuthContent from "../../components/Auth/AuthContent";
+import LoadingOverlay from "../../components/ui/LoadingOverlay";
+import { AuthContext } from "../../store/auth-contenxt";
+import { createUser } from "../../util/auth";
 
 function SignupScreen() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
