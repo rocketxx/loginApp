@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
+import jwt_decode from "jwt-decode";
 import { useContext, useEffect, useState } from 'react';
 import { Text } from 'react-native';
 
@@ -93,11 +94,16 @@ function Navigation() {
 function Root() {
     const authCtx = useContext(AuthContext);
 
+
     const [isTryingLogin, setIsTryingLogin] = useState(true);
     useEffect(() => {
         async function fetchToken() {
             const storedToken = await AsyncStorage.getItem('token'); //utilizzato per memorizzare info sul dispositivo
             if (storedToken) {
+                var decoded = jwt_decode(storedToken);
+                var isAdmin = decoded["admin"]
+                if (isAdmin != undefined)
+                    authCtx.setAdmin();
                 authCtx.authenticate(storedToken);
             }
             setIsTryingLogin(false);
