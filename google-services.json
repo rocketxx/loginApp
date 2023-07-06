@@ -1,0 +1,114 @@
+{
+  "project_info": {
+    "project_number": "877363979356",
+    "project_id": "corso-21f10",
+    "storage_bucket": "corso-21f10.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:877363979356:android:8ce7b04d3e5f7dc9507299",
+        "android_client_info": {
+          "package_name": "com.corso"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "877363979356-jb8crmnrabgln8h6ma53gjplb9jhc2bj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.corso",
+            "certificate_hash": "aa121fc365dbf8e23aa952b06ba3288ed2a270ee"
+          }
+        },
+        {
+          "client_id": "877363979356-t09msep99oop1ncolrpbhntqndt58u1f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.corso",
+            "certificate_hash": "f78f041feda254a8c89452fcaf71f2cd9aabc031"
+          }
+        },
+        {
+          "client_id": "877363979356-qgl37bnp155ekm0319lns5nff29fsc9k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2AWjqaq3K624D5181eaE3DUEdeiQJpzw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "877363979356-pk4fanpl9a6tf980qpnslsdpjldpquop.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "877363979356-jc82cue0db200b0luav22l8ppob20rt1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "host.exp.exponent"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:877363979356:android:5e881d5e4cb98604507299",
+        "android_client_info": {
+          "package_name": "host.exp.exponent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "877363979356-2prsl6kllait3fuv31tlcmuclhru8n2i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "host.exp.exponent",
+            "certificate_hash": "2966a91ac96bf9c93d0b38403a5d6ea5ecc3828c"
+          }
+        },
+        {
+          "client_id": "877363979356-8lttdklbelbkgs94n8tuqtvqc8l1eejr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "host.exp.exponent",
+            "certificate_hash": "7c6191b33c5833db902f9242b8bc74b7b9730084"
+          }
+        },
+        {
+          "client_id": "877363979356-qgl37bnp155ekm0319lns5nff29fsc9k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2AWjqaq3K624D5181eaE3DUEdeiQJpzw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "877363979356-pk4fanpl9a6tf980qpnslsdpjldpquop.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "877363979356-jc82cue0db200b0luav22l8ppob20rt1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "host.exp.exponent"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

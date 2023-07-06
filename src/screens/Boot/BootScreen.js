@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import jwt_decode from "jwt-decode";
 import { useContext, useEffect, useState } from 'react';
 import { Text } from 'react-native';
+import { GoogleSignIn } from '@react-native-google-signin/google-signin';
 
 import IconButton from '../../components/ui/IconButton';
 import { Colors } from '../../constants/styles';
@@ -14,6 +15,8 @@ import LoginScreen from '../AuthenticationScreens/LoginScreen';
 import SignupScreen from '../AuthenticationScreens/SignupScreen';
 import WelcomeAdminScreen from '../AuthenticationScreens/WelcomeAdminScreen';
 import WelcomeScreen from '../AuthenticationScreens/WelcomeScreen';
+import firebase from 'firebase/app';
+import { async } from '@firebase/util';
 
 const Stack = createNativeStackNavigator();
 
@@ -93,8 +96,6 @@ function Navigation() {
 
 function Root() {
     const authCtx = useContext(AuthContext);
-
-
     const [isTryingLogin, setIsTryingLogin] = useState(true);
     useEffect(() => {
         async function fetchToken() {

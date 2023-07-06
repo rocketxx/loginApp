@@ -1,12 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View, Platform, Text } from 'react-native';
+import * as AppleAuthentication from 'expo-apple-authentication';
+
 
 import { Colors } from '../../constants/styles';
 import FlatButton from '../ui/FlatButton';
 import AuthForm from './AuthForm';
+import Button from '../ui/Button';
 
-function AuthContent({ isLogin, onAuthenticate }) {
+function AuthContent({ isLogin, onAuthenticate, googleLoginHandler, appleLogin  }) {
   const navigation = useNavigation();
 
   const [credentialsInvalid, setCredentialsInvalid] = useState({
@@ -64,6 +67,22 @@ function AuthContent({ isLogin, onAuthenticate }) {
           {isLogin ? 'Registrati' : 'Accedi'}
         </FlatButton>
       </View>
+      
+      <Text style={styles.text} >OR</Text>
+      <View style={styles.buttons}>
+        <Button onPress={googleLoginHandler}>
+          Google Sign In
+        </Button>
+      </View>
+      {
+        Platform.OS === 'ios' && 
+        <View style={styles.buttons}>
+        <Button onPress={appleLogin}>
+          Apple Sign In
+        </Button>
+      </View>
+      }
+      
     </View>
   );
 }
@@ -86,4 +105,8 @@ const styles = StyleSheet.create({
   buttons: {
     marginTop: 8,
   },
+  text:{
+    alignSelf: 'center',
+    color:"#FFF"
+  }
 });

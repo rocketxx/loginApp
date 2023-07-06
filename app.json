@@ -14,17 +14,25 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "plugins": ["@react-native-google-signin/google-signin", "expo-apple-authentication"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.corso"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a36aeb2d-a782-466d-a7c9-259ae2cb3044"
+      }
     }
   }
 }
