@@ -2,10 +2,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-
-import { firebase } from '../modules/firebase';
-
-const auth = getAuth();
+import auth from '@react-native-firebase/auth';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import * as AppleAuthentication from 'expo-apple-authentication';
+import { async } from '@firebase/util';
+const auths = null;
 const API_KEY = 'AIzaSyAFd8IMfj5mXE8GcexS8w5HkBGATVi1ZwQ';
 
 async function authenticate(mode, email, password) {
@@ -15,7 +16,7 @@ async function authenticate(mode, email, password) {
       email: email,
       password: password,
       returnSecureToken: true,
-    });
+    })
     const idToken = response.data.idToken;
     const expiresIn = response.data.expiresIn;
     const expirationDate = new Date().getTime() + expiresIn * 1000;
@@ -25,7 +26,6 @@ async function authenticate(mode, email, password) {
         idToken,
       }
     );
-
     const userInfo = userInfoResponse.data.users[0];
 
     await AsyncStorage.setItem('user', JSON.stringify(userInfo));
@@ -38,11 +38,64 @@ async function authenticate(mode, email, password) {
   }
 }
 
+
+export async function onGoogleButtonPress() {
+  try {
+    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+    const { idToken, expiresIn } = await GoogleSignin.signIn();
+
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken)
+    const user_sign_In = await auth().signInWithCredential(googleCredential);
+    const res = user_sign_In.additionalUserInfo;
+    const userInfo = res.profile;
+
+    const expirationDate = new Date().getTime() + expiresIn * 1000;
+    await AsyncStorage.setItem('user', JSON.stringify(userInfo));
+    await AsyncStorage.setItem('token', idToken);
+    await AsyncStorage.setItem('expirationDate', expirationDate.toString());
+
+    return idToken;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function onAppleButtonPress() {
+    try {
+      const appleCredential = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+        ],
+      });
+  
+      const { identityToken } = appleCredential;
+      const provider = new firebase.auth.OAuthProvider('apple.com');
+      const credential = provider.credential(identityToken);
+  
+      const userCredential = await firebase.auth().signInWithCredential(credential);
+      const userInfo = userCredential.additionalUserInfo.profile;
+  
+      const expirationDate = new Date().getTime() + expiresIn * 1000;
+      await AsyncStorage.setItem('user', JSON.stringify(userInfo));
+      await AsyncStorage.setItem('token', identityToken);
+      await AsyncStorage.setItem('expirationDate', expirationDate.toString());
+  
+      return identityToken;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+  
+
+
 async function firebase_auth(mode, email, password) {
-  await signInWithEmailAndPassword(auth, email, password);
+  await signInWithEmailAndPassword(auths, email, password);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auths, async (user) => {
       if (user) {
         console.log("User is signed in:", user);
         await AsyncStorage.setItem('user', JSON.stringify(user));
@@ -55,7 +108,7 @@ async function firebase_auth(mode, email, password) {
     return () => unsubscribe();
   }, []);
 
-  await onAuthStateChanged(auth, async (user) => {
+  await onAuthStateChanged(auths, async (user) => {
     if (user) {
       console.log("User is signed in:", user);
       var uid = user.uid;
